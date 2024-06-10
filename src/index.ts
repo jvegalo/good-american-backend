@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 
 const app = express();
 const port = 4000;
-const favoriteProducts = require("./favorites.ts");
+import favoriteProducts from "./routes/favorites";
 
 app.use(bodyParser.json());
 

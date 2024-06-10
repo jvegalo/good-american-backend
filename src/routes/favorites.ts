@@ -1,22 +1,16 @@
 import express from "express";
+import {
+  getFavoriteProducts,
+  addFavoriteProduct,
+  deleteFavoriteProduct,
+} from "../services/favoritesService";
+
 const router = express.Router();
-import mongoose from "mongoose";
 
-const FavoriteProductSchema = new mongoose.Schema({
-  product_id: String,
-  customer_id: String,
-});
-var FavoriteProductModel = mongoose.model(
-  "FavoriteProductSchema",
-  FavoriteProductSchema
-);
-
-router.get("/:customer_id", async function (req, res) {
+router.get("/:customer_id", async (req, res) => {
   const { customer_id } = req.params;
   try {
-    const favoriteProducts = await FavoriteProductModel.find({
-      customer_id,
-    });
+    const favoriteProducts = await getFavoriteProducts(customer_id);
     res.status(200).json(favoriteProducts);
   } catch (error) {
     console.error("Error retrieving favorite products:", error);
@@ -26,16 +20,10 @@ router.get("/:customer_id", async function (req, res) {
   }
 });
 
-router.post("/", async function (req, res) {
+router.post("/", async (req, res) => {
   const { product_id, customer_id } = req.body;
-
-  const newFavoriteProduct = new FavoriteProductModel({
-    product_id,
-    customer_id,
-  });
-
   try {
-    await newFavoriteProduct.save();
+    await addFavoriteProduct(product_id, customer_id);
     res.status(200).json({ success: true });
   } catch (error) {
     console.error("Error saving favorite product:", error);
@@ -45,15 +33,10 @@ router.post("/", async function (req, res) {
   }
 });
 
-router.delete("/", async function (req, res) {
+router.delete("/", async (req, res) => {
   const { product_id, customer_id } = req.body;
-  console.log(product_id, customer_id);
-
   try {
-    const result = await FavoriteProductModel.deleteOne({
-      product_id,
-      customer_id,
-    });
+    const result = await deleteFavoriteProduct(product_id, customer_id);
     if (result.deletedCount === 0) {
       res
         .status(404)
@@ -69,4 +52,4 @@ router.delete("/", async function (req, res) {
   }
 });
 
-module.exports = router;
+export default router;
