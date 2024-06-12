@@ -9,13 +9,7 @@ const port = 80;
 import favoriteProducts from "./routes/favorites";
 
 app.use(bodyParser.json());
-app.use(
-  cors({
-    origin: "*",
-    methods: ["GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"],
-    credentials: true,
-  })
-);
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Hello, TypeScript with Express!");
