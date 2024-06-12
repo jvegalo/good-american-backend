@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 
 const app = express();
-const port = 4000;
+const port = 80;
 import favoriteProducts from "./routes/favorites";
 
 app.use(bodyParser.json());
