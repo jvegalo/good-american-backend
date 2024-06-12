@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 
 const app = express();
-const port = 80;
+const port = 3030;
 import favoriteProducts from "./routes/favorites";
 
 app.use(
