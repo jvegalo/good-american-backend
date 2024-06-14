@@ -17,5 +17,6 @@ Tests are located in "__tests__/favorites.test.ts" and are implemented using Jes
 To run the tests, simply run:
 
 ```bash
+npm install
 npm test
 ```
